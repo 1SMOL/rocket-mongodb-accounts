@@ -1,4 +1,15 @@
-use rocket_dyn_templates::{Template, context};
+use mongodb::bson::{doc, Document};
+use rocket_dyn_templates::{
+    Template, 
+    context
+};
+use rocket::{
+    form::Form, 
+    response::{Redirect, Flash}
+};
+use rocket_db_pools::Connection;
+
+use crate::UsersDB;
 
 #[get("/signup")]
 pub async fn signup() -> Template {
@@ -8,11 +19,28 @@ pub async fn signup() -> Template {
     })
 }
 
-/*
-    TODO:
-    Create a POST getter for '/user/signup' that stores a valid user on mongodb,
-    then redirect to '/user/login' to log into the new user account.
-*/
+#[derive(FromForm)]
+pub struct AuthForm<'r> {
+    username: &'r str,
+    password: &'r str
+}
+
+#[post("/signup", data="<auth>")]
+pub async fn acc_creation(db: Connection<UsersDB>, auth: Form<AuthForm<'_>>) -> Result<Redirect, Flash<Redirect>> {
+    let collection = db.database("auth").collection::<Document>("users");
+    let search = collection.find_one(doc!{"username": auth.username}, None).await.unwrap();
+
+    match search {
+        None => { // If account doesn't exist, create one.
+            let creator = collection.insert_one(doc!{ "username": auth.username, "password": auth.password}, None).await;
+            match creator {
+                Ok(_) => Ok(Redirect::to(uri!(crate::public::user::login))),
+                Err(error) => Err(Flash::error(Redirect::to(uri!(signup)), error.to_string()))
+            }
+        },
+        Some(_) => Err(Flash::error(Redirect::to(uri!(signup)), "User already exists."))
+    }
+}
 
 #[get("/login")]
 pub async fn login() -> Template {

@@ -1794,10 +1794,10 @@ dependencies = [
 name = "rocket-mongodb-accounts"
 version = "0.1.0"
 dependencies = [
+ "mongodb",
  "rocket",
  "rocket_db_pools",
  "rocket_dyn_templates",
- "serde",
 ]
 
 [[package]]
