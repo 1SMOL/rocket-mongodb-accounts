@@ -1,0 +1,16 @@
+{% extends "base" %}
+{% block body %}
+
+<div class="container">
+    <h1>Rocket &heartsuit; MongoDB</h1>
+    <p>
+        This is a rocket and mongodb template. This is made as a learning step for my self, <br>
+        and for others looking for a half decent example to get their own blog, <br>
+        small business website up and running quickly, while learning as well.
+    </p>
+
+    <a href="/user/signup" class="call_to_action style_border">Create account</a>
+    <a href="/user/login" class="call_to_action style_border">Login to your account</a>
+</div>
+
+{% endblock %}

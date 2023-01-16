@@ -1,0 +1,46 @@
+{% extends "base" %}
+{% block body %}
+
+<div class="container">
+    {% if signup %}
+    <h1>Sign up here</h1>
+
+    <form action="/user/signup" method="post" class="user_input">
+        <div>
+            <label for="username">
+                Username
+            </label>
+            <input type="text" name="username" id="username" value="" class="text_field style_border">
+        </div>
+        <div>
+            <label for="password">
+                Password
+            </label>
+            <input type="password" name="password" id="password" value="" class="text_field style_border">
+        </div>
+        <input type="submit" value="Sign up" class="call_to_action style_border">
+        <a href="/user/login">Already have an account?</a>
+    </form>
+    {% else %}
+    <h1>Login here</h1>
+
+    <form action="/user/login" method="post" class="user_input">
+        <div>
+            <label for="username">
+                Username
+            </label>
+            <input type="text" name="username" id="username" value="" class="text_field style_border">
+        </div>
+        <div>
+            <label for="password">
+                Password
+            </label>
+            <input type="password" name="password" id="password" value="" class="text_field style_border">
+        </div>
+        <input type="submit" value="Login" class="call_to_action style_border">
+        <a href="/user/signup">Sign up</a>
+    </form>
+    {% endif %}
+</div>
+
+{% endblock %}
