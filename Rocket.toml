@@ -1,0 +1,2 @@
+[default.databases.mongodb]
+url = "mongodb+srv://introvert:pNpcDEFLfU0sX4al@cluster0.gpsomlm.mongodb.net/?retryWrites=true&w=majority"
