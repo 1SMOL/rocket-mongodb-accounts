@@ -33,7 +33,9 @@ fn rocket() -> _ {
         .mount("/user", routes![
             public::user::signup,
             public::user::acc_creation, 
-            public::user::login
+            public::user::login,
+            public::user::access_acc,
+            public::user::user_account
             ]
         )
 }

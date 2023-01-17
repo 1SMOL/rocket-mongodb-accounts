@@ -41,6 +41,10 @@
         <a href="/user/signup">Sign up</a>
     </form>
     {% endif %}
+
+    {% if error != "" %}
+    <span style="color: rgb(219, 48, 48)"><b>{{error}}</b></span>
+    {% endif %}
 </div>
 
 {% endblock %}
